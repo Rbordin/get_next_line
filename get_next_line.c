@@ -3,93 +3,74 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbordin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rbordin <rbordin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 09:50:27 by rbordin           #+#    #+#             */
-/*   Updated: 2023/02/08 15:04:20 by rbordin          ###   ########.fr       */
+/*   Created: 2023/02/09 14:43:36 by rbordin           #+#    #+#             */
+/*   Updated: 2023/02/10 12:52:35 by rbordin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <unistd.h>
-int	ft_strlen(char *s1)
+#include "get_next_line.h"
+
+char	*ft_finder(char *mem)
 {
-	int		i;
-	char	limit;
+	size_t	i;
 
-	limit = '\n';
-	if (!s1)
-		return ('\0');
-	i = 0;
-	while (s1[i] != '\0' && s1[i] != limit)
-		i++;
-	return (i + 1);
-}
-
-char	*ft_substr(char *s1, int len)
-{
-	int	i;
-	char	*res;
-	char	stop;
-
-	i = 0;
-	stop = '\n';
-	if (!s1 && !stop)
+	if (!mem)
 		return (NULL);
-	res = malloc(sizeof(char) * (ft_strlen(s1) + 1));
-	if (res == NULL)
-		return (NULL);
-	while (s1[i])
+	i = 0;
+	while (mem[i])
 	{
-		if (s1[i] != '\0' && s1[i] != stop && i < len)
-			((char *)res)[i] = s1[i];
+		if (mem[i] == '\n')
+			return (mem + i);
 		i++;
 	}
-	res[i] = '\n';
-	res[i + 1] = '\0';
-	return (res);
+	return (NULL);
 }
 
-char	*ft_str_clean(char *s1)
+char	*ft_link(char *mem, char *tmp)
 {
-	int	i;
+	int		i;
+	int		j;
+	char	*clear;
 
+	if (!mem && (!tmp || !*tmp))
+		return (NULL);
 	i = 0;
-	while (s1 && s1[i] != '\n')
-		s1[i++] = '\0';
-	s1[i] = '\0';
-	return (s1);
+	if (mem)
+	{
+		while (mem[i])
+			++i;
+	}
+	j = 0;
+	while (tmp[j])
+		++j;
+	clear = (char *)malloc(sizeof(char) * i + j + 1);
+	if (!clear)
+		return (NULL);
+	clear[i + j] = '\0';
+	while (--j >= 0)
+		clear[i + j] = tmp[j];
+	while (--i >= 0)
+		clear[i] = mem[i];
+	free(mem);
+	return (clear);
 }
 
 char	*get_next_line(int fd)
 {
 	char		*res;
-	char		*BUFFER;
-	int			step;
-	static char	*tmp;
+	static char	*mem;
 
-	if (fd == -1)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	step = read(fd, BUFFER, SIZE_MAX);
-	tmp = BUFFER;
-	res = ft_substr(tmp, step); 
-	tmp = ft_str_clean(BUFFER);
-	free(BUFFER);
-	return (res);	
+	mem = place_holder(fd, mem);
+	if (!mem || !*mem)
+	{
+		free(mem);
+		return (NULL);
+	}
+	res = extract(mem);
+	mem = forget(mem);
+	return (res);
 }
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-
-#include <stdio.h>
-int	main()
-{
-	int	fd;
-	char *res;
-
-	fd = open("/Users/rbordin/Desktop/LINK_PLAYLIST_LEZIONI.txt", O_RDONLY);
-	res = get_next_line(fd);
-	printf("%s", res);
-	return (0);
-}
-	
