@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbordin <rbordin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:40:35 by rbordin           #+#    #+#             */
-/*   Updated: 2023/02/10 15:01:48 by rbordin          ###   ########.fr       */
+/*   Updated: 2023/02/10 15:07:09 by rbordin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -25,10 +25,10 @@
 # include <unistd.h>
 
 char		*get_next_line(int fd);
-char		*forget(char *mem);
-char		*extract(char *mem);
+char        *forget(char *mem);
+char        *extract(char *mem);
 char		*ft_link(char *mem, char *tmp);
-char		*place_holder(int fd, char *mem);
+char	    *place_holder(int fd, char *mem);
 char		*ft_finder(char *mem);
 
 # ifndef BUFFER_SIZE

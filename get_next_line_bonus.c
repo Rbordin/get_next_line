@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbordin <rbordin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:43:36 by rbordin           #+#    #+#             */
-/*   Updated: 2023/02/10 14:51:17 by rbordin          ###   ########.fr       */
+/*   Updated: 2023/02/10 16:06:32 by rbordin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_finder(char *mem)
 {
@@ -60,17 +60,17 @@ char	*ft_link(char *mem, char *tmp)
 char	*get_next_line(int fd)
 {
 	char		*res;
-	static char	*mem;
+	static char	*mem[4096];
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	mem = place_holder(fd, mem);
-	if (!mem || !*mem)
+	mem[fd] = place_holder(fd, mem[fd]);
+	if (!mem[fd] || !*mem)
 	{
-		free(mem);
+		free(mem[fd]);
 		return (NULL);
 	}
-	res = extract(mem);
-	mem = forget(mem);
+	res = extract(mem[fd]);
+	mem[fd] = forget(mem[fd]);
 	return (res);
 }
