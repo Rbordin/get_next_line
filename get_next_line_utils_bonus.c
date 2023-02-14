@@ -6,7 +6,7 @@
 /*   By: rbordin <rbordin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:51:45 by rbordin           #+#    #+#             */
-/*   Updated: 2023/02/10 15:06:32 by rbordin          ###   ########.fr       */
+/*   Updated: 2023/02/14 09:59:37 by rbordin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,27 +39,27 @@ char	*place_holder(int fd, char *mem)
 char	*extract(char *mem)
 {
 	size_t	i;
-	char	*mine;
+	char	*miner;
 
 	i = 0;
 	while (mem[i] && mem[i] != '\n')
 		++i;
-	mine = (char *)malloc(sizeof (char) * (i + 2));
-	if (!mine)
+	miner = (char *)malloc(sizeof (char) * (i + 2));
+	if (!miner)
 		return (NULL);
 	i = 0;
 	while (mem[i] && mem[i] != '\n')
 	{
-		mine[i] = mem[i];
+		miner[i] = mem[i];
 		++i;
 	}
 	if (mem[i] == '\n')
 	{
-		mine[i] = '\n';
+		miner[i] = '\n';
 		++i;
 	}
-	mine[i] = 0;
-	return (mine);
+	miner[i] = 0;
+	return (miner);
 }
 
 char	*forget(char *mem)

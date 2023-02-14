@@ -6,7 +6,7 @@
 /*   By: rbordin <rbordin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:43:36 by rbordin           #+#    #+#             */
-/*   Updated: 2023/02/10 16:06:32 by rbordin          ###   ########.fr       */
+/*   Updated: 2023/02/14 10:00:40 by rbordin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	mem[fd] = place_holder(fd, mem[fd]);
-	if (!mem[fd] || !*mem)
+	if (!mem[fd] || !*mem[fd])
 	{
 		free(mem[fd]);
 		return (NULL);
